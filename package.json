@@ -8,14 +8,14 @@
   "scripts": {
     "test": "live-server --open=./SpecRunner.html --port=8081",
     "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
-    "start": "babel . --out-dir compiled --presets=react --ignore=node_modules, compiled --source-maps inline --watch --live-server"
+    "start": "babel . --out-dir compiled --presets=react --ignore=node_modules,compiled --source-maps inline --watch"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.2",
     "jquery": "^2.2.1",
     "lodash": "^4.6.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
