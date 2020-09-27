@@ -1,4 +1,4 @@
-var VideoPlayer = ({video}) => {
+var VideoPlayer = ({ video }) => {
   const url = `https://www.youtube.com/embed/${video.id.videoId}`;
   return (
     <div className="video-player">

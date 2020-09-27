@@ -1,6 +1,7 @@
 import exampleVideoData from '../data/exampleVideoData.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,6 +10,32 @@ class App extends React.Component {
       videos: exampleVideoData,
       video: exampleVideoData[0]
     };
+    console.log('this.props: ', this.props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.onSubmit('cats');
+  }
+
+  onSubmit(query) {
+    const options = {
+      q: query,
+      maxResults: 5,
+      key: YOUTUBE_API_KEY
+    };
+    this.props.searchYouTube(options, (videos) => {
+      this.setState({
+        videos: videos,
+        video: videos[0]
+      });
+    });
+  }
+
+  handleClick(video) {
+    this.setState({
+      video: video
+    });
   }
 
   render() {
@@ -24,7 +51,7 @@ class App extends React.Component {
             <VideoPlayer video={this.state.video} />
           </div>
           <div className="col-md-5">
-            <VideoList videos={this.state.videos} />
+            <VideoList videos={this.state.videos} handleClick={this.handleClick.bind(this)} />
           </div>
         </div>
       </div>
