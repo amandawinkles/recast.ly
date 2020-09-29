@@ -2,6 +2,7 @@ import exampleVideoData from '../data/exampleVideoData.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
+import Search from './Search.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,18 +11,21 @@ class App extends React.Component {
       videos: exampleVideoData,
       video: exampleVideoData[0]
     };
-    console.log('this.props: ', this.props);
+    //console.log('this.props: ', this.props);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmit = _.debounce(this.onSubmit, 1000);
   }
 
   componentDidMount() {
-    this.onSubmit('cats');
+    setTimeout(() => {
+      this.onSubmit('cats');
+    }, 1000);
   }
 
   onSubmit(query) {
     const options = {
-      q: query,
-      maxResults: 5,
+      query: query,
+      max: 5,
       key: YOUTUBE_API_KEY
     };
     this.props.searchYouTube(options, (videos) => {
@@ -43,7 +47,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <Search onSubmit={this.onSubmit.bind(this)} />
           </div>
         </nav>
         <div className="row">
